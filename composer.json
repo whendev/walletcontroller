@@ -1,0 +1,12 @@
+{
+    "name": "whendel/walletcontroller",
+    "description": "Micro Saas para controle de despesas",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Whendel Morais",
+            "email": "whendel.morais.9@gmail.com"
+        }
+    ],
+    "require": {}
+}
