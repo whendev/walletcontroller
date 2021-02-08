@@ -8,5 +8,7 @@
             "email": "whendel.morais.9@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/dotenv": "^5.2"
+    }
 }
