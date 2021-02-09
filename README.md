@@ -13,7 +13,7 @@ git clone https://github.com/whendev/walletcontroller.git
 Entre no repositório clonado e instale todas as dependências com o comando:
 
 ```
-npm install
+composer install
 ```
 
 Preencha os dados necessários no arquivo .env.example e o renomeie para .env
