@@ -4,14 +4,12 @@ use CoffeeCode\Router\Router;
 
 require __DIR__."/vendor/autoload.php";
 
+$route = new Router("http://localhost:8080", ":");
 
-$router = new Router("http://localhost:8080/");
-
-$router->get("/", function (){
-    echo "tudo ok";
-});
+$route->namespace("Source\Controllers");
+$route->get("/", "Web:home");
 
 /**
  * ROUTE
  */
-$router->dispatch();
+$route->dispatch();

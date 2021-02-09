@@ -18,7 +18,8 @@
             "Source\\": "source"
         },
         "files": [
-            "source/support/env-export.php"
+            "source/support/env-export.php",
+            "config/App.php"
         ]
     }
 }
