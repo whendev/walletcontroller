@@ -26,28 +26,28 @@ class Message
     }
 
 
-    public function error(string $message)
+    public function error(string $message): Message
     {
         $this->type = CONF_MESSAGE_ERROR;
-        $this->text = $message;
+        $this->text = $this->filter($message);
         return $this;
     }
-    public function warning(string $message)
+    public function warning(string $message): Message
     {
         $this->type = CONF_MESSAGE_WARNING;
-        $this->text = $message;
+        $this->text = $this->filter($message);
         return $this;
     }
-    public function info(string $message)
+    public function info(string $message): Message
     {
         $this->type = CONF_MESSAGE_INFO;
-        $this->text = $message;
+        $this->text = $this->filter($message);
         return $this;
     }
-    public function success(string $message)
+    public function success(string $message): Message
     {
         $this->type = CONF_MESSAGE_SUCCESS;
-        $this->text = $message;
+        $this->text = $this->filter($message);
         return $this;
     }
 
@@ -61,5 +61,8 @@ class Message
                 </div>";
     }
 
-
+    public function filter(string $message)
+    {
+        return filter_var($message, FILTER_SANITIZE_STRIPPED);
+    }
 }
