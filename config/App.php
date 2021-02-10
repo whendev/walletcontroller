@@ -7,7 +7,7 @@ define("CONF_DB_PASS", $_ENV["CONF_DB_PASSWORD"]);
 
 
 // MESSAGE
-define("CONF_MESSAGE_CLASS","alert alert-dismissible");
+define("CONF_MESSAGE_CLASS","alert alert-dismissible fade show");
 define("CONF_MESSAGE_SUCCESS","alert-success");
 define("CONF_MESSAGE_INFO","alert-primary");
 define("CONF_MESSAGE_ERROR","alert-danger");
