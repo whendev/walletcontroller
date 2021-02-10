@@ -5,6 +5,7 @@ namespace Source\Core;
 
 
 use PDOException;
+use Source\support\Message;
 
 /**
  * Class Model
@@ -20,6 +21,11 @@ abstract class Model
      * @var PDOException|null
      */
     protected ?PDOException $fail;
+
+    /**
+     * @var Message|null
+     */
+    protected ?Message $message;
 
     /**
      * @var null|string
@@ -68,6 +74,8 @@ abstract class Model
         self::$entity = $entity;
         self::$required = $required;
         self::$protected = array_merge($protected, ["created_at", "updated_at"]);
+
+        $this->message = new Message();
     }
 
     /**
