@@ -14,7 +14,13 @@ use Source\support\Message;
 class Controller
 {
 
+    /**
+     * @var View
+     */
     protected View $view;
+    /**
+     * @var Message
+     */
     protected Message $message;
 
     /**
