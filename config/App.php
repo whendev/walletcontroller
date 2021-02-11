@@ -20,8 +20,8 @@ define("CONF_URL_TEST","http://localhost:8080");
 define("CONF_URL_ADMIN","/admin");
 
 // VIEW
-define("CONF_VIEW_PATCH", __DIR__."/../views/themes");
-define("CONF_VIEW_WEB", "walletweb");
+define("CONF_VIEW_PATCH", __DIR__."/../themes");
+define("CONF_VIEW_THEME", "walletweb");
 define("CONF_VIEW_APP", "walletapp");
 define("CONF_VIEW_EXT", "php");
 
