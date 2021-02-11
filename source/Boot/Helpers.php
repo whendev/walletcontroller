@@ -22,7 +22,37 @@ function is_passwd(string $password): bool
     return false;
 }
 
+/**
+ * @param string $password
+ * @return string
+ */
+function passwd(string $password): string
+{
+    if (!empty(password_get_info($password)['algo'])){
+        return $password;
+    }
 
+    return password_hash($password, CONF_PASSWD_ALGO, CONF_PASSWD_OPTIONS);
+}
+
+/**
+ * @param string $password
+ * @param string $hash
+ * @return bool
+ */
+function passwd_verify(string $password, string $hash): bool
+{
+    return password_verify($password, $hash);
+}
+
+/**
+ * @param string $hash
+ * @return bool
+ */
+function passwd_rehash(string $hash): bool
+{
+    return password_needs_rehash($hash, CONF_PASSWD_ALGO, CONF_PASSWD_OPTIONS);
+}
 
 // REQUEST
 
