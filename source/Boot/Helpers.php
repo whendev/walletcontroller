@@ -368,7 +368,20 @@ function session(): Session
 
 // MODEL
 
+function user(): ?\Source\Models\User
+{
+    return \Source\Models\Auth::user();
+}
 
+// SUPPORT
+
+/**
+ * @return \Source\Support\Message
+ */
+function message(): \Source\Support\Message
+{
+    return new \Source\Support\Message();
+}
 
 
 
