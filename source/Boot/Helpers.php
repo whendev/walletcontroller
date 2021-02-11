@@ -185,6 +185,10 @@ function str_title(string $string): string
     return mb_convert_case(filter_var($string, FILTER_SANITIZE_SPECIAL_CHARS), MB_CASE_TITLE);
 }
 
+/**
+ * @param string $text
+ * @return string
+ */
 function str_textarea(string $text): string
 {
     $text = filter_var($text, FILTER_SANITIZE_STRIPPED);
@@ -230,13 +234,62 @@ function str_limit_chars(string $string, int $limit, string $pointer = "..."): s
     return "{$chars}{$pointer}";
 }
 
+/**
+ * @param string $price
+ * @return string
+ */
 function str_price(string $price): string
 {
     return number_format($price, 2, ",", ".");
 }
 
-
 // URL
+
+/**
+ * @param ?string $path
+ * @return string
+ */
+function url(string $path = null): string
+{
+    if (strpos($_SERVER['HTTP_HOST'], "localhost")){
+        if ($path){
+            return CONF_URL_TEST. "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+        }
+
+        return CONF_URL_TEST;
+    }
+
+    if ($path){
+        return CONF_URL_BASE . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+    }
+    return CONF_URL_BASE;
+}
+
+/**
+ * @return string
+ */
+function url_back(): string {
+    return ($_SERVER['HTTP_REFERER'] ?? url());
+}
+
+/**
+ * @param string $url
+ */
+function redirect(string $url): void
+{
+    header("HTTP/1.1 302 Redirect");
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        header("Location: {$url}");
+        exit;
+    }
+
+    if (filter_input(INPUT_GET, "route", FILTER_DEFAULT) != $url){
+        $location = url($url);
+        header("Location: {$location}");
+        exit;
+    }
+}
+
 
 // ASSETS
 
