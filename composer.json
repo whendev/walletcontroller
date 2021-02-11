@@ -22,7 +22,8 @@
         },
         "files": [
             "source/support/env-export.php",
-            "config/App.php"
+            "config/App.php",
+            "source/Boot/Helpers.php"
         ]
     }
 }
