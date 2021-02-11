@@ -4,6 +4,8 @@
 namespace Source\support;
 
 
+use Source\Core\Session;
+
 /**
  * Class Message
  * @package Source\support
@@ -101,6 +103,22 @@ class Message
                     <span aria-hidden='true'>&times;</span>
                   </button>
                 </div>";
+    }
+
+    /**
+     * @return false|string
+     */
+    public function json()
+    {
+        return json_encode(["error" => $this->getText()]);
+    }
+
+    /**
+     * SET FLASH MESSAGE
+     */
+    public function flash(): void
+    {
+        (new Session())->set("flash", $this);
     }
 
     /**
