@@ -304,18 +304,22 @@ function redirect(string $url): void
  */
 function theme(string $path = null, string $theme = CONF_VIEW_THEME): string
 {
-    if (strpos($_SERVER['HTTP_HOST'], "localhost")){
+    $url = $_SERVER['HTTP_HOST'];
+    $find = 'localhost';
+    $pos = strpos($url, $find);
+
+    if ($pos === false){
         if ($path){
-            return CONF_URL_TEST. "/themes/{$theme}/".($path[0] == "/" ? mb_substr($path, 1) : $path);
+            return CONF_URL_BASE. "/themes/{$theme}/".($path[0] == "/" ? mb_substr($path, 1) : $path);
         }
+        return CONF_URL_BASE."/themes/{$theme}";
 
-        return CONF_URL_TEST."/themes/{$theme}";
     }
-
     if ($path){
-        return CONF_URL_BASE. "/themes/{$theme}/".($path[0] == "/" ? mb_substr($path, 1) : $path);
+        return CONF_URL_TEST. "/themes/{$theme}/".($path[0] == "/" ? mb_substr($path, 1) : $path);
     }
-    return CONF_URL_BASE."/themes/{$theme}";
+
+    return CONF_URL_TEST."/themes/{$theme}";
 }
 
 // DATE
