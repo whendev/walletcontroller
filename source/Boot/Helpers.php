@@ -56,6 +56,86 @@ function passwd_rehash(string $hash): bool
 
 // REQUEST
 
+/**
+ * @return string
+ */
+function csrf_input(): string
+{
+    $session = new \Source\Core\Session();
+    $session->csrf();
+    return "<input type='hidden' name='csrf' value='" . ($session->csrf_token ?? "") . "'/>";
+}
+
+/**
+ * @param $request
+ * @return bool
+ */
+function csrf_verify($request): bool
+{
+    $session = new \Source\Core\Session();
+    if (empty($session->csrf_token) || empty($request['csrf']) || $request['csrf'] != $session->csrf_token) {
+        return false;
+    }
+    return true;
+}
+
+
+/**
+ * @return string|null
+ */
+function flash(): ?string
+{
+    $session = new \Source\Core\Session();
+    if ($flash = $session->flash()){
+        echo $flash;
+    }
+    return null;
+}
+
+/**
+ * @param string $key
+ * @param int $limit
+ * @param int $seconds
+ * @return bool
+ */
+function request_limit(string $key, int $limit = 5, int $seconds = 60): bool
+{
+    $session = new \Source\Core\Session();
+    if ($session->has($key) && $session->$key->time >= time() && $session->$key->requests < $limit){
+        $session->set($key, [
+            "time" => time() + $seconds,
+            "requests" =>  $session->$key->requests + 1
+        ]);
+        return false;
+    }
+
+    if ($session->has($key) && $session->$key->time >= time() && $session->$key->requests >= $limit){
+        return true;
+    }
+
+    $session->set($key, [
+        "time" => time() + $seconds,
+        "requests" => 1
+    ]);
+    return false;
+}
+
+/**
+ * @param string $field
+ * @param string $value
+ * @return bool
+ */
+function request_repeat(string $field, string $value): bool
+{
+    $session = new \Source\Core\Session();
+    if ($session->has($field) && $session->$field == $value){
+        return true;
+    }
+
+    $session->set($field, $value);
+    return false;
+}
+
 // STRING
 
 // URL
