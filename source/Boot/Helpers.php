@@ -1,6 +1,7 @@
 <?php
 
 // VALIDATE
+use Source\Core\Session;
 
 /**
  * @param string $email
@@ -61,7 +62,7 @@ function passwd_rehash(string $hash): bool
  */
 function csrf_input(): string
 {
-    $session = new \Source\Core\Session();
+    $session = new Session();
     $session->csrf();
     return "<input type='hidden' name='csrf' value='" . ($session->csrf_token ?? "") . "'/>";
 }
@@ -72,7 +73,7 @@ function csrf_input(): string
  */
 function csrf_verify($request): bool
 {
-    $session = new \Source\Core\Session();
+    $session = new Session();
     if (empty($session->csrf_token) || empty($request['csrf']) || $request['csrf'] != $session->csrf_token) {
         return false;
     }
@@ -85,7 +86,7 @@ function csrf_verify($request): bool
  */
 function flash(): ?string
 {
-    $session = new \Source\Core\Session();
+    $session = new Session();
     if ($flash = $session->flash()){
         echo $flash;
     }
@@ -100,7 +101,7 @@ function flash(): ?string
  */
 function request_limit(string $key, int $limit = 5, int $seconds = 60): bool
 {
-    $session = new \Source\Core\Session();
+    $session = new Session();
     if ($session->has($key) && $session->$key->time >= time() && $session->$key->requests < $limit){
         $session->set($key, [
             "time" => time() + $seconds,
@@ -127,7 +128,7 @@ function request_limit(string $key, int $limit = 5, int $seconds = 60): bool
  */
 function request_repeat(string $field, string $value): bool
 {
-    $session = new \Source\Core\Session();
+    $session = new Session();
     if ($session->has($field) && $session->$field == $value){
         return true;
     }
@@ -348,6 +349,22 @@ function date_fmt_app(string $date = "now"): string
 }
 
 // CORE
+
+/**
+ * @return PDO
+ */
+function db(): PDO
+{
+    return \Source\Core\Connect::getInstance();
+}
+
+/**
+ * @return Session
+ */
+function session(): Session
+{
+    return new Session();
+}
 
 // MODEL
 
