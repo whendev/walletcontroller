@@ -73,6 +73,8 @@ class User extends Model
             $max = CONF_PASSWD_MAX_LEN;
             $this->message->warning("Sua senha deve ter entre {$min} a {$max} caracteres");
             return false;
+        } else {
+            $this->password = passwd($this->password);
         }
 
         $userId = $this->id;
