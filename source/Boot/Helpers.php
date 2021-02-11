@@ -252,18 +252,21 @@ function str_price(string $price): string
  */
 function url(string $path = null): string
 {
-    if (strpos($_SERVER['HTTP_HOST'], "localhost")){
+    $url = $_SERVER['HTTP_HOST'];
+    $find = 'localhost';
+    $pos = strpos($url, $find);
+    if ($pos === false){
+        if ($path){
+            return CONF_URL_BASE . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+        }
+        return CONF_URL_BASE;
+
+    } else {
         if ($path){
             return CONF_URL_TEST. "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
         }
-
         return CONF_URL_TEST;
     }
-
-    if ($path){
-        return CONF_URL_BASE . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
-    }
-    return CONF_URL_BASE;
 }
 
 /**
@@ -382,7 +385,4 @@ function message(): \Source\Support\Message
 {
     return new \Source\Support\Message();
 }
-
-
-
 
