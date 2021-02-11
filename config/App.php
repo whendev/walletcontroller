@@ -49,6 +49,9 @@ define("CONF_SITE_DESC", "O WalletController é um gerenciador de contas simples
 define("CONF_SITE_LANG","pt-BR");
 define("CONF_SITE_DOMAIN","walletcontroller.com");
 
+define("CONF_DATE_BR", "d-m-Y");
+define("CONF_DATE_APP", "d-m-Y");
+
 // EMAIL
 define("CONF_MAIL_OPTION_LANG", "br");
 define("CONF_MAIL_OPTION_HTML", true);
