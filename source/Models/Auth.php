@@ -21,6 +21,15 @@ class Auth extends Model
         parent::__construct("users", ["email", "password"], ["id"]);
     }
 
+    public static function user(): ?User
+    {
+        $session = new Session();
+        if (!$session->has("authUser")) {
+            return null;
+        }
+        return (new User())->findById($session->authUser);
+    }
+
     /**
      * @param string $email
      * @param string $password
@@ -70,7 +79,6 @@ class Auth extends Model
         (new Session())->set("authUser", $user->id);
         $this->message->success("Login efetuado com sucesso")->flash();
         return true;
-
     }
 
 }

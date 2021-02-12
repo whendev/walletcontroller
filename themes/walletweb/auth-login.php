@@ -14,8 +14,8 @@
                         <h2 class="text-center text-primary">Login</h2>
                     </div>
                     <div class="ajax_response"><?= flash(); ?></div>
-                    <?= csrf_input(); ?>
-                    <form action="<?= url("/entrar"); ?>" method="post">
+                    <form action="<?= url("/entrar"); ?>" method="post" enctype="multipart/form-data">
+                        <?= csrf_input(); ?>
                         <div class="input-group py-2">
                             <input type="email" class="form-control form-control-lg" placeholder="Email" name="email" required>
                             <div class="input-group-append custom">

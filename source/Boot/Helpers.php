@@ -17,7 +17,7 @@ function is_email(string $email){
  */
 function is_passwd(string $password): bool
 {
-    if (password_get_info($password)['algo'] || mb_strlen($password) >= CONF_PASSWD_MIN_LEN && mb_strlen($password <= CONF_PASSWD_MAX_LEN)){
+    if (password_get_info($password)['algo'] || mb_strlen($password) >= CONF_PASSWD_MIN_LEN && mb_strlen($password) <= CONF_PASSWD_MAX_LEN){
         return true;
     }
     return false;
