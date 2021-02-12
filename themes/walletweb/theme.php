@@ -24,7 +24,7 @@
                     <li class="nav-item text-muted"><a class="nav-link" aria-current="page" href="<?= url(); ?>">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                </ul><a class="btn btn-primary ml-auto hover-top-shadow" href="#">Login</a>
+                </ul><a class="btn btn-primary ml-auto hover-top-shadow" href="<?= url("/entrar"); ?>">Login</a>
             </div>
         </div>
     </nav>

@@ -9,6 +9,10 @@ $route = new Router("http://localhost:8080", ":");
 $route->namespace("Source\Controllers");
 $route->get("/", "Web:home");
 
+// AUTH
+$route->get("/entrar", "Web:login");
+$route->post("/entrar", "Web:login");
+
 /**
  * ROUTE
  */

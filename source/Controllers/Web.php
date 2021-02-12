@@ -22,4 +22,11 @@ class Web extends Controller
     {
         echo $this->view->render("home", []);
     }
+
+    public function login(?array $data)
+    {
+        echo $this->view->render("auth-login", [
+            "cookie" => filter_input(INPUT_COOKIE, "authEmail")
+        ]);
+    }
 }
