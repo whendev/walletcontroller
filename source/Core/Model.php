@@ -126,6 +126,14 @@ abstract class Model
     }
 
     /**
+     * @return Message|null
+     */
+    public function message(): ?Message
+    {
+        return $this->message;
+    }
+
+    /**
      * @param string|null $terms
      * @param string|null $params
      * @param string $columns
