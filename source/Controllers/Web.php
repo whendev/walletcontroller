@@ -24,6 +24,11 @@ class Web extends Controller
         echo $this->view->render("home", []);
     }
 
+    public function register(?array $data)
+    {
+        echo $this->view->render("auth-register", []);
+    }
+
     public function login(?array $data)
     {
         if (!empty($data['csrf'])){

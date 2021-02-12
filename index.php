@@ -13,6 +13,9 @@ $route->get("/", "Web:home");
 $route->get("/entrar", "Web:login");
 $route->post("/entrar", "Web:login");
 
+$route->get("/cadastrar", "Web:register");
+$route->post("/cadastrar", "Web:register");
+
 /**
  * ROUTE
  */
