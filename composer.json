@@ -12,6 +12,7 @@
         "league/plates": "v4.0.0-alpha",
         "symfony/dotenv": "^5.2",
         "coffeecode/router": "1.0.*",
+        "phpmailer/phpmailer": "~6.1",
         "ext-pdo": "*",
         "ext-mbstring": "*",
         "ext-json": "*"
