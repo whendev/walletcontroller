@@ -7,6 +7,7 @@ namespace Source\Models;
 use Source\Core\Model;
 use Source\Core\Session;
 use Source\Core\View;
+use Source\Models\WalletApp\AppWallet;
 use Source\support\Email;
 
 
@@ -47,6 +48,13 @@ class Auth extends Model
             return false;
         }
 
+        $user_id = (new User())->findByEmail($user->email);
+
+        (new AppWallet())->create([
+            "user_id" => $user_id->id,
+            "wallet" => "Carteira demo"
+        ]);
+
         $view = new View(__DIR__."/../../shared/views/email");
         $message = $view->render("confirm", [
             "first_name" => $user->first_name,
@@ -80,7 +88,7 @@ class Auth extends Model
             return false;
         }
 
-        if ($save){
+        if ($save) {
             setcookie("authEmail", $email, time() + 604800, "/");
         } else {
             setcookie("authEmail", null, time() - 3600, "/");
