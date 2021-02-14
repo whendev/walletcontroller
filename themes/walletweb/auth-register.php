@@ -14,7 +14,7 @@
                         <h2 class="text-center text-primary">Cadastrar</h2>
                     </div>
                     <div class="ajax_response"><?= flash(); ?></div>
-                    <form action="<?= url("/entrar"); ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?= url("/cadastrar"); ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_input(); ?>
                         <div class="input-group py-2">
                             <input type="text" class="form-control form-control-lg" placeholder="Primeiro nome" name="first_name" required>
