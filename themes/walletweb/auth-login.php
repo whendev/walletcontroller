@@ -32,22 +32,22 @@
                             <div class="col-6 text-center">
                                 <div class="custom-control custom-checkbox">
                                     <label>
-                                        <input type="checkbox" <?= ($cookie ? "checked" : ""); ?> name="save"> Remember me
+                                        <input type="checkbox" <?= ($cookie ? "checked" : ""); ?> name="save"> Lembrar-se
                                     </label>
                                 </div>
                             </div>
                             <div class="col-6 text-center">
-                                <div class="forgot-password"><a href="">Forgot Password</a></div>
+                                <div class="forgot-password"><a href="<?= url("/recuperar"); ?>">Recuperar senha</a></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group mb-0">
-                                    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
+                                    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Entrar">
                                 </div>
-                                <div class="font-16 weight-600 pt-1 pb-1 text-center" data-color="#707373">OR</div>
+                                <div class="font-16 weight-600 pt-1 pb-1 text-center" data-color="#707373">OU</div>
                                 <div class="input-group mb-0">
-                                    <a class="btn btn-outline-primary btn-lg btn-block" href="<?= url("/cadastrar"); ?>">Register To Create Account</a>
+                                    <a class="btn btn-outline-primary btn-lg btn-block" href="<?= url("/cadastrar"); ?>">Criar conta</a>
                                 </div>
                             </div>
                         </div>
