@@ -275,6 +275,41 @@ abstract class Model
     }
 
     /**
+     * @return bool
+     */
+    public function save(): bool
+    {
+        if (!$this->required()){
+            $this->message->warning('Preencha todos os campos para continuar');
+            return false;
+        }
+
+        $id = $this->id;
+
+        // UPDATE Access
+        if (!empty($this->id)){
+            $id = $this->id;
+            $this->update($this->safe(), "id = :id", "id={$id}");
+            if (!empty($this->fail)){
+                $this->message->error("Erro ao atualizar, verifique os dados");
+                return false;
+            }
+        }
+
+        // CREATE Access
+        if (empty($this->id)){
+            $id = $this->create($this->safe());
+            if (!empty($this->fail)){
+                $this->message->error("Erro ao cadastrar, verifique os dados");
+                return false;
+            }
+        }
+
+        $this->data = $this->findById($id)->data();
+        return true;
+    }
+
+    /**
      * @param string $terms
      * @param string|null $params
      * @return bool
