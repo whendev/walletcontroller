@@ -31,9 +31,19 @@ $route->get("/obrigado/{email}", "Web:success");
 $route->group("/app");
 $route->get("/", "App:home");
 
-
+// Group error
+$route->group("/error");
+$route->get("/{errcode}", "Web:error");
 
 /**
- * ROUTE
+ * This method executes the routes
  */
 $route->dispatch();
+
+/*
+ * Redirect all errors
+ */
+if ($route->error()) {
+    $route->redirect("/error/{$route->error()}");
+}
+

@@ -217,4 +217,22 @@ class Web extends Controller
     }
 
 
+    public function error(array $data)
+    {
+
+        switch ($data['errcode']){
+            case 404:
+                echo $this->view->render("error", [
+                    "image" => theme("/assets/image/404_error.svg"),
+                    "errorTitle" => "ERROR: 404 PAGINA NÃO ENCONTRADA",
+                    "errorDescription" => "Desculpe, a página que você está procurando não pode ser acessada.
+Verifique o URL"
+                ]);
+                return;
+        }
+
+
+        echo $this->view->render("error", []);
+    }
+
 }
