@@ -30,7 +30,7 @@
                         </div>
                         <div class="row pb-3">
                             <div class="col-6 text-center">
-                                <div class="custom-control custom-checkbox">
+                                <div class="checkbox">
                                     <label>
                                         <input type="checkbox" <?= ($cookie ? "checked" : ""); ?> name="save"> Lembrar-se
                                     </label>
