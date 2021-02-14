@@ -16,19 +16,21 @@
 <!--    Main Content-->
 <!-- ===============================================-->
 <main class="main">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white py-4 pl-0">
-        <div class="container"><a class="navbar-brand text-primary font-weight-bold" href="<?= url(); ?>"> WalletController </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item text-muted"><a class="nav-link" aria-current="page" href="<?= url(); ?>">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                </ul><a class="btn btn-primary ml-auto hover-top-shadow" href="<?= url("/entrar"); ?>">Login</a>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-4 pl-0">
+            <div class="container"><a class="navbar-brand text-primary font-weight-bold" href="<?= url(); ?>"> WalletController </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item text-muted"><a class="nav-link" aria-current="page" href="<?= url(); ?>">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    </ul><a class="btn btn-primary ml-auto hover-top-shadow" href="<?= url("/entrar"); ?>">Login</a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
+    </div>
     <!--  Dynamic content  -->
     <?= $v->section("content"); ?>
     <!--  End. Dynamic content  -->
