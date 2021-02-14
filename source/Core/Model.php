@@ -20,7 +20,7 @@ abstract class Model
     /**
      * @var PDOException|null
      */
-    protected ?PDOException $fail;
+    protected $fail;
 
     /**
      * @var Message|null
@@ -265,7 +265,7 @@ abstract class Model
             parse_str($params, $result);
 
             $statement = Connect::getInstance()->prepare("UPDATE ".self::$entity." SET {$dataSet} WHERE {$terms}");
-            $statement->execute($this->filter(array_merge($dataSet, $result)));
+            $statement->execute($this->filter(array_merge($data, $result)));
 
             return ($statement->rowCount() ?? 1);
         } catch (PDOException $exception){
