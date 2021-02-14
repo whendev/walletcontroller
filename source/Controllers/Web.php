@@ -100,6 +100,10 @@ class Web extends Controller
 
     public function login(?array $data)
     {
+        if (Auth::user()){
+            redirect("/app");
+        }
+
         if (!empty($data['csrf'])){
             if (!csrf_verify($data)){
                 $json['message'] = $this->message->info("Erro ao enviar, favor use o formulario")->render();
