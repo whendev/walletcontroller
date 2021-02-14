@@ -77,11 +77,10 @@ class User extends Model
             $this->password = passwd($this->password);
         }
 
-        $userId = $this->id;
-
         // UPDATE
-        if (!empty($userId)){
-            if ($this->find("email = :email AND id != :id", "email={$this->email}&id={$userId}")){
+        if (!empty($this->id)){
+            $userId = $this->id;
+            if ($this->find("email = :email AND id != :id", "email={$this->email}&id={$userId}", "id")->fetch()){
                 $this->message->error("O email informado já está cadastrado!");
                 return false;
             }
@@ -93,8 +92,10 @@ class User extends Model
             }
         }
 
+        $userId = $this->id;
+
         // CREATE
-        if (empty($userId)){
+        if (empty($this->id)){
             if ($this->findByEmail($this->email, "id")){
                 $this->message->error("O email informado já está cadastrado!");
                 return false;
