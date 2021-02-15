@@ -4,6 +4,7 @@
 namespace Source\Models\WalletApp;
 
 
+use Exception;
 use Source\Core\Model;
 use Source\Models\User;
 
@@ -24,7 +25,7 @@ class AppInvoice extends Model
     /**
      * @param User $user
      * @param int $afterMonth
-     * @throws \Exception
+     * @throws Exception
      */
     public function fixed(User $user, int $afterMonth = 1)
     {
@@ -64,9 +65,6 @@ class AppInvoice extends Model
                 }
             }
         }
-
-
-
     }
 
     /**

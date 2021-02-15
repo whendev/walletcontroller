@@ -29,6 +29,7 @@ class App extends Controller
         }
 
         $this->user = Auth::user();
+        (new AppInvoice())->fixed($this->user, 3);
     }
 
     public function home()
@@ -46,10 +47,10 @@ class App extends Controller
 
         $chart = (new AppInvoice())->find(
             "user_id = :user AND status = :status AND due_at >= DATE(now() - INTERVAL 4 MONTH) ORDER BY year(due_at) ASC, month(due_at) ASC",
-            "user={$this->user->id}&status=paid",
+                "user={$this->user->id}&status=paid",
             "year(due_at) AS due_year,
-                     month(due_at) AS due_month,
-                     DATE_FORMAT(due_at, '%m-%Y') AS due_date,
+                    month(due_at) AS due_month,
+                    DATE_FORMAT(due_at, '%m-%Y') AS due_date,
                      (SELECT sum(value) FROM app_invoices WHERE user_id = :user AND year(due_at) = due_year AND month(due_at) = due_month AND status = :status AND type = 'income') AS income,   
                      (SELECT sum(value) FROM app_invoices WHERE user_id = :user AND year(due_at) = due_year AND month(due_at) = due_month AND status = :status AND type = 'expense') AS expense
                     "
@@ -295,7 +296,6 @@ class App extends Controller
 
     public function invoice(array $data)
     {
-
         if ($data["remove"]){
             $invoice = (new AppInvoice())->find("user_id = :user AND id = :id", "user={$this->user->id}&id={$data["remove"]}")->fetch();
             $urlRedirect = (($invoice->type == "income" ? "receber" : "pagar") ?? "");
