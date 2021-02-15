@@ -334,7 +334,7 @@ abstract class Model
     /**
      * @return bool
      */
-    protected function destroy(): bool
+    public function destroy(): bool
     {
         if (empty($this->id)){
             return false;
