@@ -22,7 +22,7 @@
                 <div class="form-row">
                   <div class="form-group col-sm-6">
                     <label for="valorInput<?= $invoice->type; ?>">Valor:</label>
-                    <input id="valorInput<?= $invoice->type; ?>" type="text" class="form-control" name="value" placeholder="0,00" maxlength="22" value="<?= str_price((str_replace(".", ",",$invoice->value))); ?>">
+                    <input id="valorInput<?= $invoice->type; ?>" type="text" class="form-control" name="value" placeholder="0,00" maxlength="22" value="<?= str_replace(".", ",",$invoice->value); ?>">
                   </div>
 
                   <div class="form-group col-sm-6">
