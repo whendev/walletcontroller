@@ -296,7 +296,8 @@ class App extends Controller
 
     public function invoice(array $data)
     {
-        if ($data["remove"]){
+        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        if (empty($data["remove"])){
             $invoice = (new AppInvoice())->find("user_id = :user AND id = :id", "user={$this->user->id}&id={$data["remove"]}")->fetch();
             $urlRedirect = (($invoice->type == "income" ? "receber" : "pagar") ?? "");
             if ($invoice->destroy()){
@@ -307,6 +308,45 @@ class App extends Controller
                 redirect(url("/app/{$urlRedirect}"));
             }
             return;
+        }
+
+        if (empty($data["alter"])){
+            if (in_array("", $data)){
+                $json["message"] = $this->message->warning("Você precisa informar todos os campos para continuar")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $find = (new AppInvoice())->find("user_id = :user AND id = :id", "user={$this->user->id}&id={$data['id']}")->fetch();
+            if ($find){
+                $find->description = $data["description"];
+                $find->value = str_replace(['.',','], ['','.'], $data['value']);
+                $find->due_at = date_fmt_app($data["due_at"]);
+                $find->wallet_id = $data["wallet_id"];
+                $find->category_id = $data["category_id"];
+                $find->repeat_when = $data["repeat_when"];
+                $find->period = $data["period"];
+                $find->enrollments = $data["enrollments"];
+
+
+                if ($find->save()){
+                    $this->message->success("Sua fatura foi alterada com sucesso!")->flash();
+                    $json['redirect'] = url("/app/". ($data['type'] == 'income' ? "receber" : "pagar"));
+                    echo json_encode($json);
+                    return;
+                } else {
+                    $this->message->error("Não foi possivel alterar sua fatura! caso o erro persista, entre em contato com nosso suporte. ")->flash();
+                    $json['redirect'] = url("/app/". ($data['type'] == 'income' ? "receber" : "pagar"));
+                    echo json_encode($json);
+                    return;
+                }
+
+            } else {
+                $this->message->warning("A fatura que você deseja alterar não existe!")->flash();
+                $json['redirect'] = url("/app/". ($data['type'] == 'income' ? "receber" : "pagar"));
+                echo json_encode($json);
+                return;
+            }
         }
 
         $invoice = (new AppInvoice())->find("user_id = :user AND id = :id",
