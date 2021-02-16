@@ -9,16 +9,22 @@
         }
     ],
     "require": {
+        "league/plates": "v4.0.0-alpha",
         "symfony/dotenv": "^5.2",
         "coffeecode/router": "1.0.*",
-        "ext-pdo": "*"
+        "phpmailer/phpmailer": "~6.1",
+        "ext-pdo": "*",
+        "ext-mbstring": "*",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
             "Source\\": "source"
         },
         "files": [
-            "source/support/env-export.php"
+            "source/support/env-export.php",
+            "config/App.php",
+            "source/Boot/Helpers.php"
         ]
     }
 }
