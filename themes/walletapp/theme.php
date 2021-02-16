@@ -24,7 +24,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link"><span><b>ATENÇÃO!</b> Esta é uma versao BETA, algumas funcionalidades não estão disponiveis e outras estão mal feitas </span></a>
+        <a href="#" class="nav-link"><span><b>ATENÇÃO!</b> Esta é uma versão BETA, algumas funcionalidades não estão disponíveis. </span></a>
       </li>
     </ul>
 
