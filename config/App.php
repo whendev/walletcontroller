@@ -15,7 +15,7 @@ define("CONF_MESSAGE_WARNING","alert-warning");
 
 
 // PROJECT URLs
-define("CONF_URL_BASE","http://walletcontroller.com");
+define("CONF_URL_BASE","https://walletcontrollerr.000webhostapp.com/");
 define("CONF_URL_TEST","http://localhost:8080");
 define("CONF_URL_ADMIN","/admin");
 
@@ -50,7 +50,7 @@ define("CONF_SITE_LANG","pt-BR");
 define("CONF_SITE_DOMAIN","walletcontroller.com");
 
 define("CONF_DATE_BR", "d-m-Y");
-define("CONF_DATE_APP", "d-m-Y");
+define("CONF_DATE_APP", "Y-m-d");
 
 // EMAIL
 define("CONF_MAIL_OPTION_LANG", "br");
