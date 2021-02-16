@@ -297,7 +297,7 @@ class App extends Controller
     public function invoice(array $data)
     {
         $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-        if (empty($data["remove"])){
+        if (!empty($data["remove"])){
             $invoice = (new AppInvoice())->find("user_id = :user AND id = :id", "user={$this->user->id}&id={$data["remove"]}")->fetch();
             $urlRedirect = (($invoice->type == "income" ? "receber" : "pagar") ?? "");
             if ($invoice->destroy()){
@@ -310,7 +310,7 @@ class App extends Controller
             return;
         }
 
-        if (empty($data["alter"])){
+        if (!empty($data["alter"])){
             if (in_array("", $data)){
                 $json["message"] = $this->message->warning("Você precisa informar todos os campos para continuar")->render();
                 echo json_encode($json);

@@ -8,10 +8,10 @@
         </button>
       </div>
       <div class="ajax_response"><?= flash(); ?></div>
-<!--      --><?//= csrf_input(); ?>
       <form action="<?= url("app/launch"); ?>" method="post" enctype="multipart/form-data">
         <input type="hidden" name="currency" value="BRL">
         <input type="hidden" name="type" value="<?= $type; ?>">
+          <?= csrf_input(); ?>
         <div class="modal-body">
           <div class="form-group">
             <label for="descriptionInput<?= $type; ?>">Descrição:</label>
