@@ -17,7 +17,7 @@
                     <form action="<?= url("/entrar"); ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_input(); ?>
                         <div class="input-group py-2">
-                            <input type="email" class="form-control form-control-lg" placeholder="Email" name="email" required>
+                            <input type="email" class="form-control form-control-lg" placeholder="Email" name="email" value="<?= ($cookie ? $cookie : ""); ?>" required>
                             <div class="input-group-append custom">
                                 <span class="input-group-text"><i class="far fa-user"></i></span>
                             </div>
