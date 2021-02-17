@@ -33,16 +33,9 @@
 
                 <div class="form-group col-ms-3 text-center mx-2">
                   <label>
-                    <input list="datelist" type="text" class="mask-month" name="date" value="<?= (!empty($filter->date) ? $filter->date : "") ?>" placeholder="mm/yyyy" maxlength="7">
+                    <input type="text" class="mask-month form-control" name="date" value="<?= (!empty($filter->date) ? $filter->date : "") ?>" placeholder="mm/yyyy" maxlength="7">
                   </label>
                 </div>
-                <datalist id="datelist">
-                  <?php for ($range = -2; $range <= 2; $range++):
-                    $dateRange = date("m-Y", strtotime(date("Y-m-01") . "+{$range}month"));
-                    ?>
-                    <option value="<?= $dateRange; ?>"></option>
-                  <?php endfor; ?>
-                </datalist>
 
                 <div class="form-group col-ms-3 mx-3">
                   <button type="submit" class="btn btn-outline-primary"><i class="fas fa-funnel-dollar"></i></button>
