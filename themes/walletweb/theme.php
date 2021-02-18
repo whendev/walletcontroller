@@ -22,10 +22,10 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item text-muted"><a class="nav-link" aria-current="page" href="<?= url(); ?>">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    </ul><a class="btn btn-primary ml-auto hover-top-shadow" href="<?= url("/entrar"); ?>">Login</a>
+<!--                        <li class="nav-item text-muted"><a class="nav-link" aria-current="page" href="--><?//= url(); ?><!--">Home</a></li>-->
+<!--                        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>-->
+<!--                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>-->
+                    </ul><a class="btn btn-primary ml-auto hover-top-shadow " href="<?= url("/entrar"); ?>"><?= (user() ? "Painel de controle" : "Login") ?></a>
                 </div>
             </div>
         </nav>
@@ -38,7 +38,15 @@
 </main>
 
 
-
+<footer class=" py-3">
+    <div class="container">
+        <div class="row text-center py-2">
+            <div class="col">
+                <p>Copyright ©<script>document.write(new Date().getFullYear());</script> WalletController. Desenvolvido por Whendel Morais</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 
 

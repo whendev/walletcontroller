@@ -4,7 +4,7 @@
 <!-- ============================================-->
 <!-- <section> begin ============================-->
 
-<section>
+<section class="m-lg-0">
     <div class="container">
         <div class="row">
             <div class="col-md-6 d-flex justify-content-center">

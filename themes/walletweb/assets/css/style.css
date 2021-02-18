@@ -1,6 +1,9 @@
+
 section {
     margin-top: 80px;
     margin-bottom: 80px;
+    display: flex;
+    align-items: center;
 }
 img {
     max-width: 100%;
@@ -13,4 +16,22 @@ img {
 
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
     color: rgba(13, 110, 253, 0.7);
+}
+
+/*
+   Footer
+*/
+
+footer {
+    background-color: rgb(20, 20, 20);
+    border-bottom: 4px solid #0D6EFD;
+}
+
+section {
+    min-height: 100vh;
+}
+
+footer p {
+    margin: 0;
+    color: #696969;
 }

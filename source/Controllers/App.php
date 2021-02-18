@@ -35,57 +35,16 @@ class App extends Controller
     public function home()
     {
         // CHART
-        $dateChart = [];
-        for ($month = -4; $month <= 0; $month++){
-            $dateChart[] = date("m/Y", strtotime("{$month}month"));
-        }
 
-        $chartData = new \stdClass();
-        $chartData->categories = "'". implode("','", $dateChart). "'";
-        $chartData->expense = "0,0,0,0,0";
-        $chartData->income = "0,0,0,0,0";
 
-        $chart = (new AppInvoice())->find(
-            "user_id = :user AND status = :status AND due_at >= DATE(now() - INTERVAL 4 MONTH) ORDER BY year(due_at) ASC, month(due_at) ASC",
-                "user={$this->user->id}&status=paid",
-            "year(due_at) AS due_year,
-                    month(due_at) AS due_month,
-                    DATE_FORMAT(due_at, '%m-%Y') AS due_date,
-                     (SELECT sum(value) FROM app_invoices WHERE user_id = :user AND year(due_at) = due_year AND month(due_at) = due_month AND status = :status AND type = 'income') AS income,   
-                     (SELECT sum(value) FROM app_invoices WHERE user_id = :user AND year(due_at) = due_year AND month(due_at) = due_month AND status = :status AND type = 'expense') AS expense
-                    "
-        )->limit(5)->fetch(true);
-
-        if ($chart){
-            $chartCategories = [];
-            $chartIncome = [];
-            $chartExpense = [];
-            foreach ($chart as $chartItem){
-                $chartCategories[] = $chartItem->due_date;
-                $chartExpense[] = ($chartItem->expense ?? "0");
-                $chartIncome[] = ($chartItem->income ?? "0");
-            }
-
-            $chartData->categories = "'". implode("','", $chartCategories). "'";
-            $chartData->income = "'". implode("','", $chartIncome). "'";
-            $chartData->expense= "'". implode("','", $chartExpense). "'";
-        }
+        $chartData = (new AppInvoice())->balanceMonth($this->user);
 
         $income = (new AppInvoice())->find("user_id = :user AND status = :status AND type = 'income' AND due_at <= DATE(now() + INTERVAL 1 MONTH)", "user={$this->user->id}&status=unpaid")->order("due_at")->fetch(true);
         $expense = (new AppInvoice())->find("user_id = :user AND status = :status AND type = 'expense' AND due_at <= DATE(now() + INTERVAL 1 MONTH)", "user={$this->user->id}&status=unpaid")->order("due_at")->fetch(true);
 
         $wallets = (new AppWallet())->find("user_id = :user", "user={$this->user->id}", "id, wallet")->fetch(true);
 
-        $wallet = (new AppInvoice())->find("user_id = :user AND status = :status",
-            "user={$this->user->id}&status=paid",
-            "
-            (SELECT SUM(value) FROM app_invoices WHERE user_id = :user  AND status = :status AND type = 'income') AS income,
-            (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND status = :status AND type = 'expense') AS expense
-        ")->fetch();
-
-        if ($wallet){
-            $wallet->wallet = $wallet->income - $wallet->expense;
-        }
+        $wallet = (new AppInvoice())->balanceWallet($this->user);
 
         echo $this->view->render("home", [
             'chartData' => $chartData,
@@ -245,6 +204,39 @@ class App extends Controller
         ]);
     }
 
+    public function fixes(?array $data)
+    {
+        echo $this->view->render("invoices", [
+            "invoices" => (new AppInvoice())->find("user_id = :user AND type IN('fixed_income', 'fixed_expense')", "user={$this->user->id}")->fetch(true)
+        ]);
+    }
+
+    public function dash(array $data)
+    {
+        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $invoice = (new AppInvoice())->find("user_id = :user AND id = :id", "user={$data['user_id']}&id={$data['id']}")->fetch();
+        $status = ($data["status"] == "unpaid" ? "paid" : "unpaid");
+        if ($status){
+            $invoice->status = $status;
+            $invoice->save();
+            $chartData = (new AppInvoice())->balanceMonth($this->user);
+            $wallet = (new AppInvoice())->balanceWallet($this->user);
+            $json["chart"] = [
+                'labels' => str_replace("'", "", explode(",", $chartData->categories)),
+                'income' => str_replace("'", "", explode(",", $chartData->income)),
+                'expense' => str_replace("'", "", explode(",", $chartData->expense)),
+                'wallet' => str_price(($wallet->wallet ?? "0.0")),
+            ];
+            $json["user"] = $invoice->user_id;
+            $json["id"] = $invoice->id;
+            $json["status"] = $invoice->status;
+            echo json_encode($json);
+        } else {
+            $json["redirect"] = url("/app");
+            echo json_encode($json);
+        }
+    }
+
     public function support(?array $data)
     {
         if (!empty($data)){
@@ -351,9 +343,14 @@ class App extends Controller
 
         $invoice = (new AppInvoice())->find("user_id = :user AND id = :id",
             "user={$this->user->id}&id={$data["invoice"]}")->fetch();
+        $type = $invoice->type;
+        $find = 'fixed';
+        $pos = strpos($type, $find);
+        if ($pos !== false){
+            $type = (explode("_", $type))[1];
+        }
 
-        $categories = (new AppCategory())->find("type = :t", "t={$invoice->type}", "id, name")->fetch(true);
-
+        $categories = (new AppCategory())->find("type = :t", "t={$type}", "id, name")->fetch(true);
         $wallets = (new AppWallet())->find("user_id = :id", "id={$this->user->id}", "id, wallet")->fetch(true);
 
         echo $this->view->render('invoice', [

@@ -16,7 +16,7 @@
     <?php endif; ?>
   </p>
   <div class="ml-auto d-flex flex-column text-right" style="align-self: center">
-    <form class="balance ajax_off" action="<?= url("/app/onpaid"); ?>" method="post">
+    <form class="ajax_off dash" action="<?= url("/app/dash"); ?>" method="post">
         <div class="balance_status">
             <input type="hidden" name="user_id" value="<?= $invoice->user_id; ?>">
             <input type="hidden" name="id" value="<?= $invoice->id; ?>">

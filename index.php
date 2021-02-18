@@ -38,8 +38,10 @@ $route->get('/pagar', "App:expense");
 $route->get('/pagar/{status}/{category}/{date}', "App:expense");
 $route->get('/fatura/{invoice}', "App:invoice");
 $route->post('/onpaid', "App:onpaid");
+$route->post('/dash', "App:dash");
 $route->post('/invoice', "App:invoice");
 $route->get('/invoice/{remove}', "App:invoice");
+$route->get('/fixas', 'App:fixes');
 
 $route->get('/perfil', "App:profile");
 $route->get("/sair", "App:logout");

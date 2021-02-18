@@ -2,7 +2,7 @@
 
 <!-- ============================================-->
 <!-- <section> begin ============================-->
-<section class="pt-4 pt-md-5">
+<section class="py-md-5 m-lg-0">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-5 col-lg-6 order-md-1"><img class="img-fluid mb-5 mb-md-0" src="<?= theme("/assets/image/wallet.svg"); ?>" alt="" /></div>
@@ -26,3 +26,42 @@
 <!-- <section> close ============================-->
 <!-- ============================================-->
 
+
+<!-- ============================================-->
+<!-- <section> begin ============================-->
+
+<section class="py-5 mb-0  bg-light" id="about">
+    <!-- Container -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-6 pr-lg-5 ">
+                <h2>Ajudamos você a <span class="text-primary">controlar todas as suas contas</span></h2>
+                <p class="text-muted mb-4">Controle suas contas de maneira rapida e simples, sem complicações! tudo disponivel de forma gratuita, crie sua conta e comece a controlar ;)</p>
+                <div class="my-4">
+                    <div class="d-flex mb-4 ">
+                        <i class="fas fa-rocket"></i>
+                        <div class="ml-3">
+                            <h5>Varias funcionalidades!</h5>
+                            <p class="text-muted mb-2">Nos construimos tudo que você precisa para acompanhar suas contas. Crie receitas ilimitadas, acompanhe tudo pelos graficos e muito mais!</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-5">
+                        <i class="far fa-calendar-check"></i>
+                        <div class="ml-3">
+                            <h5>Saiba quando!</h5>
+                            <p class="text-muted mb-4">Receba notificações quando sua fatura estiver proximo do prazo, tudo no seu email, de forma rapida e pratica clicando em um botão!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="<?= theme("/assets/image/data_trends.svg"); ?>" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+    <!--  end of .container -->
+</section>
+
+
+<!-- <section> close ============================-->
+<!-- ============================================-->

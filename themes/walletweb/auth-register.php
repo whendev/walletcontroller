@@ -2,7 +2,7 @@
 
 <!-- ============================================-->
 <!-- <section> begin ============================-->
-<section class="">
+<section class="m-lg-0">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 col-lg-7">
