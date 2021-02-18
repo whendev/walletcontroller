@@ -7,42 +7,45 @@
         <div class="card">
           <div class="card-header">
             <?= flash(); ?>
-            <form action="<?= url("/app/filter")?>" method="post" class="d-inline-flex">
-              <input type="hidden" name="filter" value="<?= $type; ?>">
-              <div class="form-row">
-                <div class="form-group col-ms-3 text-center mx-2">
-                  <label>
-                    <select name="status" class="form-control">
-                      <option value="all" <?= (empty($filter->status) ? "selected" : ""); ?> >Todas</option>
-                      <option value="paid" <?= (!empty($filter->status) && $filter->status == "paid" ? "selected" : ""); ?>> <?= ($type == "income" ? "Receitas recebidas" : "Despesas pagas"); ?></option>
-                      <option value="unpaid" <?= (!empty($filter->status) && $filter->status == "unpaid" ? "selected" : ""); ?> ><?= ($type == "income" ? "Receitas não recebidas" : "Despesas não pagas"); ?></option>
-                    </select>
-                  </label>
-                </div>
+            <?php if ($filter): ?>
+                <form action="<?= url("/app/filter")?>" method="post" class="d-inline-flex">
+                    <input type="hidden" name="filter" value="<?= $type; ?>">
+                    <div class="form-row">
+                        <div class="form-group col-ms-3 text-center mx-2">
+                            <label>
+                                <select name="status" class="form-control">
+                                    <option value="all" <?= (empty($filter->status) ? "selected" : ""); ?> >Todas</option>
+                                    <option value="paid" <?= (!empty($filter->status) && $filter->status == "paid" ? "selected" : ""); ?>> <?= ($type == "income" ? "Receitas recebidas" : "Despesas pagas"); ?></option>
+                                    <option value="unpaid" <?= (!empty($filter->status) && $filter->status == "unpaid" ? "selected" : ""); ?> ><?= ($type == "income" ? "Receitas não recebidas" : "Despesas não pagas"); ?></option>
+                                </select>
+                            </label>
+                        </div>
 
-                <div class="form-group col-ms-3 text-center mx-2">
-                  <label>
-                    <select name="category" class="form-control">
-                      <option value="all">Todas</option>
-                      <?php foreach ($categories as $category): ?>
-                        <option <?= (!empty($filter->category) && $filter->category == $category->id ? "selected" : ""); ?> value="<?= $category->id; ?>"><?= $category->name; ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </label>
-                </div>
+                        <div class="form-group col-ms-3 text-center mx-2">
+                            <label>
+                                <select name="category" class="form-control">
+                                    <option value="all">Todas</option>
+                                    <?php foreach ($categories as $category): ?>
+                                        <option <?= (!empty($filter->category) && $filter->category == $category->id ? "selected" : ""); ?> value="<?= $category->id; ?>"><?= $category->name; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </label>
+                        </div>
 
-                <div class="form-group col-ms-3 text-center mx-2">
-                  <label>
-                    <input type="text" class="mask-month form-control" name="date" value="<?= (!empty($filter->date) ? $filter->date : "") ?>" placeholder="mm/yyyy" maxlength="7">
-                  </label>
-                </div>
+                        <div class="form-group col-ms-3 text-center mx-2">
+                            <label>
+                                <input type="text" class="mask-month form-control" name="date" value="<?= (!empty($filter->date) ? $filter->date : "") ?>" placeholder="mm/yyyy" maxlength="7">
+                            </label>
+                        </div>
 
-                <div class="form-group col-ms-3 mx-3">
-                  <button type="submit" class="btn btn-outline-primary"><i class="fas fa-funnel-dollar"></i></button>
-                </div>
-              </div>
-
-            </form>
+                        <div class="form-group col-ms-3 mx-3">
+                            <button type="submit" class="btn btn-outline-primary"><i class="fas fa-funnel-dollar"></i></button>
+                        </div>
+                    </div>
+                </form>
+            <?php else: ?>
+                <h4 class="text-muted">Lançamentos fixos:</h4>
+            <?php endif; ?>
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive">

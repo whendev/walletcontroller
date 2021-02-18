@@ -105,11 +105,10 @@
           </li>
 
           <li class="nav-item">
-            <a href="<?= url('/app') ?>" class="nav-link disabled">
+            <a href="<?= url('/app/fixas') ?>" class="nav-link">
               <i class="nav-icon fas fa-exchange-alt"></i>
               <p>
                 Fixas
-                  <span class="right badge badge-info">Em breve</span>
               </p>
             </a>
           </li>
@@ -198,7 +197,7 @@
 <!-- OPTIONAL SCRIPTS -->
 <script src="<?= theme('/plugins/chart.js/Chart.min.js', CONF_VIEW_APP); ?>"></script>
 <script src="<?= theme('/dist/js/jquery.mask.js', CONF_VIEW_APP); ?>"></script>
-<?= $v->section('scripts'); ?>
+
 
 <script>
   $(function () {
@@ -269,6 +268,8 @@
       },
     });
   })
+
+
   //ajax form
   $("form:not('.ajax_off')").submit(function (e) {
     e.preventDefault();
@@ -334,5 +335,6 @@
     $(".mask-month").mask('00/0000');
   });
 </script>
+<?= $v->section('scripts'); ?>
 </body>
 </html>

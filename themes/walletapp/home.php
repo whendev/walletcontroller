@@ -134,7 +134,7 @@
           <div class="card-body">
             <div class="d-flex justify-content-center">
               <p class="d-flex flex-column text-center">
-                <span class="text-bold text-lg">R$ <?= str_price(($wallet->wallet ?? "0.0")); ?></span>
+                <span class="saldo text-bold text-lg">R$ <?= str_price(($wallet->wallet ?? "0.0")); ?></span>
                 <span>Saldo atual</span>
               </p>
             </div>
@@ -183,5 +183,52 @@
       }
     }
   });
+
+  // dash
+  $(".dash").submit(function (e) {
+      e.preventDefault();
+      var form = $(this);
+      var balanceStatus = "balance_status";
+      var dados = form.serialize();
+
+      $.ajax({
+          url: form.attr("action"),
+          data: dados,
+          type: "POST",
+          dataType: "json",
+          beforeSend: function () {
+          },
+          success: function (response) {
+              //redirect
+              if (response.redirect) {
+                  window.location.href = response.redirect;
+              }
+
+              if (response.chart){
+                  chart.data.labels = response.chart.labels;
+                  chart.data.datasets[0].data = response.chart.income;
+                  chart.data.datasets[1].data = response.chart.expense;
+                  chart.update();
+                  var saldo = $('.saldo');
+                  saldo.html("");
+                  saldo.prepend("<span class='saldo text-bold text-lg'>R$"+ response.chart.wallet +"</span>")
+
+              }
+
+              //message
+              if (response.status) {
+                  if (response.status === "paid") {
+                      form.html("").find("." + balanceStatus)
+                      form.prepend("<input type='hidden' name='user_id' value='" + response.user + "'>" + "<input type='hidden' name='id' value='" + response.id + "'>" + "<input type='hidden' name='status' value='"+ response.status +"'>" + "<button class='btn p-0' type='submit'><span class='badge bg-success'>Pago<i class='fas fa-exchange-alt pl-2'></i></span></button>")
+                          .find("." + balanceStatus);
+                  } else {
+                      form.html("").find("." + balanceStatus)
+                      form.prepend("<input type='hidden' name='user_id' value='" + response.user + "'>" + "<input type='hidden' name='id' value='" + response.id + "'>" + "<input type='hidden' name='status' value='"+ response.status +"'>" + "<button class='btn p-0' type='submit'><span class='badge bg-danger'>Não Pago<i class='fas fa-exchange-alt pl-2'></i></span></button>")
+                          .find("." + balanceStatus);
+                  }
+              }
+          },
+      });
+  })
 </script>
 <?php $v->stop(); ?>
